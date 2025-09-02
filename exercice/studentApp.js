@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const filePath = path.join(__dirname, "..", "data", "student.txt")
+const filePath = path.join(__dirname, "..", "data", "student.json")
 
 let students;
 

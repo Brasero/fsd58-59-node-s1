@@ -15,7 +15,7 @@
 
 const fs = require("node:fs");
 
-fs.readFile("./data/student.txt", "utf8", (err, data) => {
+fs.readFile("./data/student.json", "utf8", (err, data) => {
 	if (err) {
 		console.error(err)
 		process.exit(0);
@@ -27,7 +27,7 @@ fs.readFile("./data/student.txt", "utf8", (err, data) => {
 let students;
 
 try {
-	students = JSON.parse(fs.readFileSync("./data/student.txt", "utf8"));
+	students = JSON.parse(fs.readFileSync("./data/student.json", "utf8"));
 } catch(e) {
 	console.error(e)
 	process.exit(0)

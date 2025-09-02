@@ -6,7 +6,7 @@ const cwd = process.cwd()
 
 // __dirname === import.meta.dirname
 
-const filePath = path.join(cwd, "data", "student.txt")
+const filePath = path.join(cwd, "data", "student.json")
 
 let students;
 
@@ -49,6 +49,29 @@ export const more = (num) => {
 	console.table(filterStudent);
 }
 
+export const addNote = (name, note) => {
+	const student = students.find((s) => s.name.toLowerCase().trim() === name.toLowerCase().trim())
+	
+	if (!student) {
+		console.log(`L'étudiant ${name} n'existe pas.`)
+		return
+	}
+	const sanitizeNote = parseFloat(note.trim())
+	
+	if (isNaN(sanitizeNote) || sanitizeNote < 0 || sanitizeNote > 20) {
+		console.log("Merci de saisir une valeur numérique comprise entre 0 et 20")
+		return
+	}
+	
+	student.notes.push(sanitizeNote)
+	console.log(`La note de ${sanitizeNote} à bien été attribué à ${name}`)
+}
+
+export const saveFile = () => {
+	fs.writeFileSync(filePath, JSON.stringify(students, null, 2))
+	console.log("Fichier sauvegardé")
+}
+
 export const commands = [
 	{
 		name: "list",
@@ -61,5 +84,13 @@ export const commands = [
 	{
 		name: 'more <number>',
 		description: "Filtre les élèves en fonction de leur moyenne"
+	},
+	{
+		name: "quit",
+		description: "Arrête l'execution en cours"
+	},
+	{
+		name: "addNote",
+		description: "Ajouter une note à un élève en particulier"
 	}
 ];
