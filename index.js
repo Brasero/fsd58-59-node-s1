@@ -1,6 +1,10 @@
-import m from "./exemple/exportExemple.js"
+import dotenv from "dotenv"
 
-console.log(m(1, 2))
+dotenv.config(/*{
+	path: "custom/path/to/.env" // pour préciser le chemin vers le fichier .env s'il n'est pas à la racine
+}*/)
+
+console.log(process.env.MA_VARIABLE)
 
 // console.log(m.name)
 // console.log(m.addition(1, 2))
