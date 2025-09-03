@@ -1,48 +1,62 @@
-import dotenv from "dotenv"
+import readline from "readline";
+import dotenv from "dotenv";
+import Chifoumi from "./src/chifoumi.js";
 
-dotenv.config(/*{
-	path: "custom/path/to/.env" // pour préciser le chemin vers le fichier .env s'il n'est pas à la racine
-}*/)
+dotenv.config();
 
-console.log(process.env.MA_VARIABLE)
+const {APP_SHEET, APP_ROCK, APP_SCISSOR} = process.env
 
-// console.log(m.name)
-// console.log(m.addition(1, 2))
-// process.stdin.on('data', (chunk) => {
-// 	const text = chunk.toString().replace("\n", "");
-//
-// 	if (!text.includes("exit")) {
-// 		console.log(text)
-// 		return
-// 	}
-// 	process.exit(0)
-// })
-//
-// console.log("hello")
+const game = new Chifoumi(APP_ROCK, APP_SHEET, APP_SCISSOR);
+
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+	terminal: false
+})
 
 
+const commands = {
+	start: {
+		name: "start",
+		description: "Lance une partie de 3 manches"
+	},
+	stats: {
+		name: 'stats',
+		description: "Affiche les statistique des parties jouées"
+	},
+	reset: {
+		name: "reset",
+		description: "Reinitialise les statistiques de partie"
+	}
+}
 
-// const os = require("node:os")
-//
-// console.log(os.userInfo())
-//
-// process.env.EXEMPLE = "texte"
-//
-// process.stdout.write("ceci est un console.log")
-//
-// process.stderr.write("erreur")
-// console.log(process.env.EXEMPLE)
+rl.setPrompt("CHIFOUMI >> ")
+rl.prompt()
 
-
-//setTimeout(() => console.log("Asynchrone"), 1000)
-// const showResult = () => {
-// 	console.log(sum(5,2))
-// }
-//
-// const sum  = (a,b) => {
-// 	return a+b;
-// }
-//
-//
-//
-// showResult();
+rl.on("line", (line) => {
+	switch (line) {
+		
+		case "start":
+			game.run()
+			break;
+		
+		case "stats":
+			game.displayStats()
+			break;
+			
+		case "reset":
+			game.resetStats()
+			break;
+			
+		default:
+			console.log("Commande inconnue")
+			console.group("Liste des commandes disponible")
+			console.table(commands)
+			console.groupEnd()
+	}
+	
+	rl.prompt()
+}).on("end", () => {
+	console.log("Au revoir")
+	process.exit(0)
+})
