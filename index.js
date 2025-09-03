@@ -1,62 +1,64 @@
-import readline from "readline";
-import dotenv from "dotenv";
-import Chifoumi from "./src/chifoumi.js";
+import http from "node:http"
+const hostname = "localhost"
+const port = "8080"
 
-dotenv.config();
-
-const {APP_SHEET, APP_ROCK, APP_SCISSOR} = process.env
-
-const game = new Chifoumi(APP_ROCK, APP_SHEET, APP_SCISSOR);
-
-const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-	terminal: false
-})
-
-
-const commands = {
-	start: {
-		name: "start",
-		description: "Lance une partie de 3 manches"
-	},
-	stats: {
-		name: 'stats',
-		description: "Affiche les statistique des parties jouées"
-	},
-	reset: {
-		name: "reset",
-		description: "Reinitialise les statistiques de partie"
-	}
-}
-
-rl.setPrompt("CHIFOUMI >> ")
-rl.prompt()
-
-rl.on("line", (line) => {
-	switch (line) {
-		
-		case "start":
-			game.run()
-			break;
-		
-		case "stats":
-			game.displayStats()
-			break;
-			
-		case "reset":
-			game.resetStats()
-			break;
-			
-		default:
-			console.log("Commande inconnue")
-			console.group("Liste des commandes disponible")
-			console.table(commands)
-			console.groupEnd()
+const server = http.createServer((req, res) => {
+	
+	const url = req.url.replace("/", "")
+	
+	if (url === "favicon.ico") {
+		res.writeHead(200, {
+			"Content-Type": "image/x-icon"
+		})
+		res.end()
+		return
 	}
 	
-	rl.prompt()
-}).on("end", () => {
-	console.log("Au revoir")
-	process.exit(0)
+	if (url === "test") {
+		res.writeHead(200, {
+			"Content-Type": "text/html"
+		})
+		res.end(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<title>
+		Ma page html
+</title>
+<meta charset="utf-8" />
+</head>
+<body>
+<h1>Ma page de test</h1>
+<a href="/">Home</a>
+</body>
+		</html>
+	`)
+		return
+	}
+	
+	res.writeHead(200, {
+		"Content-Type": "text/html"
+	})
+	res.end(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<title>
+		Ma page html
+</title>
+<meta charset="utf-8" />
+</head>
+<body>
+<h1>Ma première page web en node</h1>
+<a href="/test">Page de test</a>
+</body>
+		</html>
+	`)
+	
+	
+	
+})
+
+server.listen(port, hostname, () => {
+	console.log(`Server listening at http://${hostname}:${port}`)
 })
