@@ -1,9 +1,0 @@
-mixin menuItem(href, title)
-    li&attributes(attributes)
-        a(href=href)= title
-
-ul
-    each item in items
-      +menuItem(item.href, item.title)
-
-include user.pug
