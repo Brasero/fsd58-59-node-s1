@@ -10,3 +10,8 @@ const menuItems = [
 	{ path: '/references', title: 'References', isActive: false },
 	{ path: '/contact-me', title: 'Contact', isActive: false },
 ];
+
+pug.renderFile(path.join(viewPath, "home.pug"), {menuItems, pretty: true}, (err, data) => {
+	if(err) throw err;
+	console.log(data)
+})
