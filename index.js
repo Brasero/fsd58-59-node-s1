@@ -44,19 +44,19 @@ const viewPath = path.join(cwd, "view")
 // 	console.log(data)
 // })
 
-// const loggedUser = {
-// 	name: {
-// 		first: 'Jean',
-// 		last: 'Dupont',
-// 	},
-// 	age: 36,
-// 	birthdate: new Date('1986-04-18'),
-// 	location: {
-// 		zipcode: '77420',
-// 		city: 'Champs-sur-Marne',
-// 	},
-// 	isAdmin: false
-// };
+const loggedUser = {
+	name: {
+		first: 'Jean',
+		last: 'Dupont',
+	},
+	age: 36,
+	birthdate: new Date('1986-04-18'),
+	location: {
+		zipcode: '77420',
+		city: 'Champs-sur-Marne',
+	},
+	isAdmin: false
+};
 //
 // pug.renderFile(path.join(viewPath, "user.pug"), {user: loggedUser, pretty: true}, (err, data) => {
 // 	if (err) {
@@ -66,10 +66,26 @@ const viewPath = path.join(cwd, "view")
 // 	console.log(data)
 // })
 
-const users = ["Jean", "Sonia", "Mick", "Jacques"]
+// const users = ["Jean", "Sonia", "Mick", "Jacques"]
+//
+// const fruits = new Set(["Banane", "Pomme", "Fraise"]);
+// pug.renderFile(path.join(viewPath, "boucle.pug"), {users, fruits, pretty: true}, (err, data) => {
+// 	if (err) throw err;
+// 	console.log(data)
+// })
 
-const fruits = new Set(["Banane", "Pomme", "Fraise"]);
-pug.renderFile(path.join(viewPath, "boucle.pug"), {users, fruits, pretty: true}, (err, data) => {
+const itemMenu = [
+	{
+		href: "/",
+		title: "Home",
+	},
+	{
+		href: "/add",
+		title: "Ajouter un utilisateur"
+	}
+]
+
+pug.renderFile(path.join(viewPath, "home.pug"), {pretty: true}, (err, data) => {
 	if (err) throw err;
 	console.log(data)
 })

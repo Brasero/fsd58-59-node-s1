@@ -6,36 +6,3 @@ nav: ul
         span mon span
     li: a(href="/user").link#secondLink Utilisateur
     li: a(href="/test") Test
-
-main
-    article
-        p.
-            Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit.
-            Architecto at aut eaque explicabo id in incidunt,
-            magnam maxime <span>non numquam odio placeat</span> praesentium veritatis?
-            Accusamus aspernatur consequatur delectus dolor ipsum modi nobis nulla,
-            quae quibusdam quisquam, soluta tempore velit! Aperiam pariatur perspiciatis veritatis!
-            Ullam, voluptatem!
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, quo.
-        p Votre age est #{age}
-        div= name
-        div !{html}
-        div#output
-        - const job = "mecanicien"
-        h2(class=job.toUpperCase()) Votre job est #{job}
-        script.
-            const message = "mon message"
-            const outputElm = document.querySelector("#output")
-            outputElm.innerHTML = message
-
-        unless age > 18
-          h3 vous n'etes pas majeur
-
-        case age
-            when 19
-                h3 vous avez 19 ans
-            when 17
-              h3 vous avez 17 ans
-            default
-                h3 Age inconnu
