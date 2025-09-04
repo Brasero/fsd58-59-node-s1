@@ -1,0 +1,13 @@
+ul#users
+    each user in users
+      li= user
+
+ul#fruits
+    - for (const fruit of fruits)
+        li= fruit
+
+- let i = 1;
+
+while i < 10
+    div= i
+    - i++
